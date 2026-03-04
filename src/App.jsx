@@ -70,33 +70,6 @@ const WORKS_DATA = [
   }
 ];
 
-const BLOG_DATA = [
-  {
-    id: 1,
-    title: 'ミニマリズムとUIデザイン：引き算の美学がもたらすビジネス価値',
-    date: '2025.02.15',
-    category: 'Design Insight',
-    excerpt: '情報過多な現代において、ユーザーの認知負荷を下げるミニマルなUI設計は単なるトレンドではなく、必須のビジネス戦略となっています。本記事では、余白とタイポグラフィの論理的な扱い方について考察します。',
-    content: '本文がここに入ります。'
-  },
-  {
-    id: 2,
-    title: 'グローバルスタンダードな体験を創る：ローカライズを超えたアプローチ',
-    date: '2025.01.28',
-    category: 'Strategy',
-    excerpt: '日本企業が海外市場へ展開する際、表面的な言語翻訳だけでは不十分です。文化的な背景やメンタルモデルの違いを理解し、普遍的な使いやすさを追求する「カルチャライズ」のプロセスを解説します。',
-    content: '本文がここに入ります。'
-  },
-  {
-    id: 3,
-    title: 'BtoB SaaSにおけるデザインシステムの構築と運用',
-    date: '2024.12.10',
-    category: 'Engineering',
-    excerpt: 'プロダクトの成長に伴い、UIの一貫性を保つことは困難になります。LUMENが実践する、スケーラブルでメンテナンス性の高いデザインシステムの構築手法と、開発チームへの浸透プロセスを公開します。',
-    content: '本文がここに入ります。'
-  }
-];
-
 // --- Styles ---
 const globalStyles = `
   @keyframes fadeInUp {
@@ -642,8 +615,7 @@ const Blog = ({ posts, navigate, setSelectedPost }) => (
             className="cursor-pointer group"
             onClick={() => {
               setSelectedPost(post)
-              window.scrollTo(0,0)
-              navigate("blog-detail")
+              window.location.href = "/blog/" + post.slug
             }}
           >
 
