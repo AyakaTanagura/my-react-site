@@ -246,16 +246,16 @@ const Footer = () => (
         <div className="space-y-4">
           <h4 className="font-medium text-sm tracking-widest uppercase text-gray-900">Social</h4>
           <ul className="space-y-2 text-sm text-gray-500 font-light">
-            <li><a href="#" className="hover:text-black transition-colors">X (Twitter)</a></li>
-            <li><a href="#" className="hover:text-black transition-colors">LinkedIn</a></li>
-            <li><a href="#" className="hover:text-black transition-colors">Dribbble</a></li>
+            <li><a href="/" className="hover:text-black transition-colors">X (Twitter)</a></li>
+            <li><a href="/" className="hover:text-black transition-colors">LinkedIn</a></li>
+            <li><a href="/" className="hover:text-black transition-colors">Dribbble</a></li>
           </ul>
         </div>
         <div className="space-y-4">
           <h4 className="font-medium text-sm tracking-widest uppercase text-gray-900">Legal</h4>
           <ul className="space-y-2 text-sm text-gray-500 font-light">
-            <li><a href="#" className="hover:text-black transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-black transition-colors">Terms of Service</a></li>
+            <li><a href="/" className="hover:text-black transition-colors">Privacy Policy</a></li>
+            <li><a href="/" className="hover:text-black transition-colors">Terms of Service</a></li>
           </ul>
         </div>
       </div>
