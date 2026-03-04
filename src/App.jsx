@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Menu, X, Monitor, PenTool, Layout, Mail, MapPin, ArrowUpRight, Globe } from 'lucide-react';
-
+import { client } from "./lib/microcms";
 // --- Mock Data ---
 
 const WORKS_DATA = [
@@ -628,90 +628,96 @@ const WorkDetail = ({ work, navigate }) => {
   );
 };
 
-const Blog = ({ navigate, setSelectedPost }) => (
+const Blog = ({ posts, navigate, setSelectedPost }) => (
   <div className="pt-32 md:pt-48 animate-fade-in bg-gray-50 min-h-screen">
-    <section className="px-6 md:px-12 max-w-4xl mx-auto mb-24">
-      <h1 className="text-5xl md:text-7xl font-light tracking-tighter mb-8">Journal</h1>
-      <p className="text-gray-500 font-light text-lg">デザイン戦略、テクノロジートレンド、LUMENのインサイト。</p>
-    </section>
 
     <section className="px-6 md:px-12 max-w-4xl mx-auto pb-32">
-      <div className="space-y-12 md:space-y-0">
-        {BLOG_DATA.map((post) => (
-          <div 
-            key={post.id} 
-            className="group cursor-pointer md:flex md:gap-12 items-start py-8 md:py-12 md:border-t md:border-gray-200 first:border-t-0"
+
+      <div className="space-y-16">
+
+        {posts.map((post) => (
+
+          <div
+            key={post.id}
+            className="cursor-pointer group"
             onClick={() => {
-              setSelectedPost(post);
-              window.scrollTo(0,0);
-              navigate('blog-detail');
+              setSelectedPost(post)
+              window.scrollTo(0,0)
+              navigate("blog-detail")
             }}
           >
-            <div className="md:w-1/4 mb-4 md:mb-0">
-              <div className="text-sm text-gray-400 mb-1">{post.date}</div>
-              <div className="text-xs font-medium tracking-widest uppercase text-gray-900">{post.category}</div>
-            </div>
-            <div className="md:w-3/4">
-              <h2 className="text-2xl md:text-3xl font-light tracking-tight mb-4 group-hover:text-gray-500 transition-colors">{post.title}</h2>
-              <p className="text-gray-600 font-light leading-relaxed">{post.excerpt}</p>
-            </div>
+
+            {/* サムネイル */}
+            <img
+              src={post.thumbnail.url}
+              alt={post.title}
+              className="w-full h-64 object-cover mb-6"
+            />
+
+            {/* 日付 */}
+            <p className="text-sm text-gray-400 mb-2">
+              {new Date(post.date).toLocaleDateString()}
+            </p>
+
+            {/* タイトル */}
+            <h2 className="text-2xl md:text-3xl font-light group-hover:text-gray-500 transition-colors">
+              {post.title}
+            </h2>
+
           </div>
+
         ))}
+
       </div>
+
     </section>
+
   </div>
-);
+)
 
 const BlogDetail = ({ post, navigate }) => {
+
   if (!post) {
-    navigate('blog');
-    return null;
+    navigate("blog")
+    return null
   }
 
   return (
-    <div className="pt-32 md:pt-48 animate-fade-in">
+
+    <div className="pt-32 md:pt-48">
+
       <article className="px-6 md:px-12 max-w-3xl mx-auto mb-32">
-        <header className="mb-16 text-center">
-          <div className="flex justify-center items-center gap-4 text-sm text-gray-500 mb-6">
-            <span>{post.date}</span>
-            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-            <span className="font-medium tracking-widest uppercase">{post.category}</span>
-          </div>
-          <h1 className="text-3xl md:text-5xl font-light tracking-tight leading-tight mb-8">
-            {post.title}
-          </h1>
-        </header>
 
-        <div className="prose prose-lg max-w-none text-gray-700 font-light leading-loose">
-          <p className="text-xl text-gray-500 mb-12">{post.excerpt}</p>
-          {/* Mock Content */}
-          <p>
-            デザインにおいて「何を残すか」と同じくらい重要なのが「何を削ぎ落とすか」です。特にBtoBの複雑なシステムや、情報量の多いアプリケーションにおいて、画面上に存在するすべての要素はユーザーの認知リソースを消費します。
-          </p>
-          <h3 className="text-2xl font-medium tracking-tight mt-12 mb-6 text-black">情報の階層化と余白の役割</h3>
-          <p>
-            要素を詰め込むのではなく、適切な余白（ホワイトスペース）を設けることで、情報は自然とグループ化され、直感的な理解を助けます。これは単なる視覚的な美しさの追求ではなく、タスク完了速度の向上やエラー率の低下といった、明確なビジネス上の指標（KPI）に直結する設計手法です。
-          </p>
-          <div className="my-12 p-8 bg-gray-50 border-l-4 border-black text-gray-900 italic">
-            "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away." - Antoine de Saint-Exupéry
-          </div>
-          <p>
-            私たちLUMENでは、プロジェクトの初期段階で徹底的な要件定義を行い、コアとなる価値（ジョブ）を特定します。そして、その価値にユーザーを最短距離で導くため、ノイズとなるUI要素を徹底的に排除していくプロセスをとっています。
-          </p>
-        </div>
+        {/* タイトル */}
+        <h1 className="text-4xl md:text-5xl font-light mb-6">
+          {post.title}
+        </h1>
 
-        <div className="mt-24 pt-12 border-t border-gray-200 text-center">
-           <button 
-            onClick={() => { window.scrollTo(0,0); navigate('blog'); }}
-            className="inline-flex items-center gap-2 text-sm font-medium tracking-widest uppercase hover:text-gray-500 transition-colors"
-          >
-            <ArrowRight className="w-4 h-4 rotate-180" /> Back to Journal
-          </button>
-        </div>
+        {/* 日付 */}
+        <p className="text-gray-400 mb-12">
+          {new Date(post.date).toLocaleDateString()}
+        </p>
+
+        {/* サムネイル */}
+        <img
+          src={post.thumbnail.url}
+          alt={post.title}
+          className="w-full mb-12"
+        />
+
+        {/* 本文 */}
+        <div
+          className="prose prose-lg max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+
       </article>
+
     </div>
-  );
-};
+
+  )
+
+}
 
 const Contact = () => (
   <div className="pt-32 md:pt-48 animate-fade-in min-h-screen">
@@ -793,6 +799,7 @@ const Contact = () => (
 // --- Main App ---
 
 export default function App() {
+  const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedWork, setSelectedWork] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -804,12 +811,18 @@ export default function App() {
       case 'about': return <About />;
       case 'works': return <Works navigate={setCurrentPage} setSelectedWork={setSelectedWork} />;
       case 'works-detail': return <WorkDetail work={selectedWork} navigate={setCurrentPage} />;
-      case 'blog': return <Blog navigate={setCurrentPage} setSelectedPost={setSelectedPost} />;
+      case 'blog': return <Blog posts={posts} navigate={setCurrentPage} setSelectedPost={setSelectedPost} />;
       case 'blog-detail': return <BlogDetail post={selectedPost} navigate={setCurrentPage} />;
       case 'contact': return <Contact />;
       default: return <Home navigate={setCurrentPage} setSelectedWork={setSelectedWork} />;
     }
   };
+  
+  useEffect(() => {
+    client
+      .get({ endpoint: "blog" })
+      .then((res) => setPosts(res.contents));
+  }, []);
 
   return (
     <div className="min-h-screen font-sans antialiased text-gray-900 bg-white selection:bg-black selection:text-white flex flex-col">
