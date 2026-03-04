@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Menu, X, Monitor, PenTool, Layout, ChevronRight, Mail, MapPin, ArrowUpRight, Globe } from 'lucide-react';
+import { ArrowRight, Menu, X, Monitor, PenTool, Layout, Mail, MapPin, ArrowUpRight, Globe } from 'lucide-react';
 
 // --- Mock Data ---
 
